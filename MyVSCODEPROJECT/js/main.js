@@ -51,7 +51,7 @@ var app = new Vue({
             this.yen5 = Math.floor(change/5);
             this.yen1 = change % 5;
         },
-        time: function(e){
+        tilme: function(e){
             var date = new Date();
             this.now = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
         },
@@ -68,7 +68,9 @@ var app = new Vue({
         }
     }
 });
-
+let elem = document.getElementById("ele2").innerText;
+let task1 = "データの取得とDOM操作"
+let task2 = "JSONで取得したデータをパースする"
 
 // const h3 = document.querySelector('h3');
 
