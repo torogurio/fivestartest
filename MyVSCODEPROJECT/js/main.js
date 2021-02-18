@@ -51,7 +51,7 @@ var app = new Vue({
             this.yen5 = Math.floor(change/5);
             this.yen1 = change % 5;
         },
-        tilme: function(e){
+        time: function(e){
             var date = new Date();
             this.now = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
         },
