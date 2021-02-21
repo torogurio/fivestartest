@@ -35,9 +35,91 @@ var app = new Vue({
         yen50: 0,
         yen10: 0,
         yen5: 0,
-        yen1: 0
+        yen1: 0,
+        inputdata: "Result\tJSON\t\n\tsubject\t文字列\t件名\n\tObjectList\tJSON\n\t\tname\t文字列\t名前\n\t\tnum\t数値\t9\n\t\tfruitList\tリスト\tりんご\tバナナ\tみかん\n\ttotalprice\t数値\t1200",
+        outdata: ""
     },
     methods: {
+        conv: function(e){
+            var lines = this.inputdata.split('\n');
+            let out = "";
+            let type = 0;
+            let level = 0;
+            let before_level = -1;
+            for ( let i = 0; i < lines.length; i++ ) {
+                let offset = true;
+                let items = lines[i].split('\t');
+                let key = "";
+                let lineflg = false;
+                for ( let  j= 0; j < items.length; j++ ) {
+                    if(offset == true && items[j] == ""){
+                        level = j+1;
+                    }else{
+                        offset = false;
+                    }
+                    if(items[j] != ""){
+                        if(level==before_level){
+
+                        }else if(level > before_level){
+                            out += "{";
+                        }else{
+                            let start = out.substring(0,out.lastIndexOf('\n')-1);
+                            let end = out.slice(out.lastIndexOf('\n')+1,out.length);
+                            out = start + end + "},\n";
+                        }
+                        before_level = level;
+                        if(j==level+1){
+                            switch (items[j]){
+                                case 'JSON':
+                                    type = items[j];
+                                    out = out + "\"" + key + "\": ";
+                                    lineflg = true;
+                                    break;
+                                case '文字列':
+                                    type = items[j];
+                                    break;
+                                case '数値':
+                                    type = items[j];
+                                    break;
+                                case 'リスト':
+                                    type = items[j];
+                                    break;
+                            }
+                            continue;
+                        }else if( j==level ){
+                            key = items[j];
+                            continue;
+                        }else if(j>level){
+                            if(type == "JSON"){
+                                out = out + "\"" + key + "\": \"" + items[j] + "\"";
+                            }else if(type == "文字列"){
+                                out = out + "\"" + key + "\": \"" + items[j] + "\"";
+                            }else if(type == "数値"){
+                                out = out + "\"" + key + "\": " + items[j] + "";
+                            }else if(type == "リスト"){
+                                let val = "";
+                                for ( let  k= j; k < items.length; k++ ) {
+                                    val = val + "{\"" + key + "\" : " + "\"" + items[k] + "\"}";
+                                    if(k+1 < items.length){
+                                        val += ",";
+                                    }
+                                }
+                                out = out + "\"" + key + "\": [" + val + "]";
+                            }                                
+                            break;
+                        }
+                    }else{
+                        out += "\t";
+                    }
+                }
+                if( lineflg == false || i + 1 == lines.length){
+                    out += ",";
+                }
+                out += "\n";
+            }
+            out += "}";
+            this.outdata = out;
+        },
         calc: function(e){
             change = this.price;
             this.yen500 = Math.floor(change/500);

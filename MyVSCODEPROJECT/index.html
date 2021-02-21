@@ -11,6 +11,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-8 offset-2">
+                    <h1 class="mt-5">json変換</h1>
+                    <div>
+                        <p>csv→json</p>
+                        <textarea rows="10" cols="50">{{ inputdata }}
+                        </textarea>
+                        <p><button v-on:click="conv()">変換</button></p>
+                        <textarea rows="10" cols="50">{{ outdata }}
+                        </textarea>
+                    </div>
+                </div>
+                <div class="col-8 offset-2">
                     <h1 class="mt-5">小銭の計算</h1>
                     <div>
                         <p>いくら？</p>
