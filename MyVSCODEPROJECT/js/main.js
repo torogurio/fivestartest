@@ -36,10 +36,19 @@ var app = new Vue({
         yen10: 0,
         yen5: 0,
         yen1: 0,
-        inputdata: "Result\tJSON\t\n\tsubject\t文字列\t件名\n\tObjectList\tJSON\n\t\tname\t文字列\t名前\n\t\tnum\t数値\t9\n\t\tfruitList\tリスト\tりんご\tバナナ\tみかん\n\ttotalprice\t数値\t1200",
+//        inputdata: "Result\tJSON\t\n\tsubject\t文字列\t件名\n\tObjectList\tJSON\n\t\tname\t文字列\t名前\n\t\tnum\t数値\t9\n\t\tfruitList\tリスト\tりんご\tバナナ\tみかん\n\ttotalprice\t数値\t1200",
+        inputdata: "Result\tJSON\t\n\tsubject\t文字列\t件名\n\ttotalprice\t数値\t1200",
         outdata: ""
     },
     methods: {
+        check: function(e){
+            try {
+                JSON.parse(this.outdata);
+                check=true;
+            } catch (e) {
+                alert("データ不正です");                
+            }
+        },
         conv: function(e){
             var lines = this.inputdata.split('\n');
             let out = "";
@@ -61,11 +70,19 @@ var app = new Vue({
                         if(level==before_level){
 
                         }else if(level > before_level){
-                            out += "{";
+                            out += "{\n";
+                            for(let tab=0; tab<level; tab++){
+                                out += "\t";
+                            }
                         }else{
-                            let start = out.substring(0,out.lastIndexOf('\n')-1);
-                            let end = out.slice(out.lastIndexOf('\n')+1,out.length);
-                            out = start + end + "},\n";
+                            if( (level+1) < before_level ){
+                                let start = out.substring(0,out.lastIndexOf('\n')-1);
+                                let end = out.slice(out.lastIndexOf('\n'),out.length);
+                                out = start + end + "},";
+                            }
+                            if( (level+2) < before_level ){
+                                out = out + "}";
+                            }
                         }
                         before_level = level;
                         if(j==level+1){
@@ -112,8 +129,10 @@ var app = new Vue({
                         out += "\t";
                     }
                 }
-                if( lineflg == false || i + 1 == lines.length){
+                if( lineflg == false && i + 1 != lines.length){
                     out += ",";
+                }else if(i + 1 == lines.length){
+                    out += "}";
                 }
                 out += "\n";
             }

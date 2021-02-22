@@ -14,11 +14,12 @@
                     <h1 class="mt-5">json変換</h1>
                     <div>
                         <p>csv→json</p>
-                        <textarea rows="10" cols="50">{{ inputdata }}
+                        <textarea name ="inputdata" v-model="inputdata" rows="10" cols="50">{{ inputdata }}
                         </textarea>
                         <p><button v-on:click="conv()">変換</button></p>
-                        <textarea rows="10" cols="50">{{ outdata }}
+                        <textarea name ="outdata" v-model="outdata" rows="10" cols="50">{{ outdata }}
                         </textarea>
+                        <p><button v-on:click="check()">チェック</button></p>
                     </div>
                 </div>
                 <div class="col-8 offset-2">
