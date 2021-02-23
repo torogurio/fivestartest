@@ -36,8 +36,7 @@ var app = new Vue({
         yen10: 0,
         yen5: 0,
         yen1: 0,
-//        inputdata: "Result\tJSON\t\n\tsubject\t文字列\t件名\n\tObjectList\tJSON\n\t\tname\t文字列\t名前\n\t\tnum\t数値\t9\n\t\tfruitList\tリスト\tりんご\tバナナ\tみかん\n\ttotalprice\t数値\t1200",
-        inputdata: "Result\tJSON\t\n\tsubject\t文字列\t件名\n\ttotalprice\t数値\t1200",
+        inputdata: "Result\tJSON\t\n\tsubject\t文字列\t件名\n\tObjectList\tJSON\n\t\tname\t文字列\t名前\n\t\tnum\t数値\t9\n\t\tfruitList\tリスト\tりんご\tバナナ\tみかん\n\ttotalprice\t数値\t1200",
         outdata: ""
     },
     methods: {
@@ -70,19 +69,11 @@ var app = new Vue({
                         if(level==before_level){
 
                         }else if(level > before_level){
-                            out += "{\n";
-                            for(let tab=0; tab<level; tab++){
-                                out += "\t";
-                            }
+                            out += "{";
                         }else{
-                            if( (level+1) < before_level ){
-                                let start = out.substring(0,out.lastIndexOf('\n')-1);
-                                let end = out.slice(out.lastIndexOf('\n'),out.length);
-                                out = start + end + "},";
-                            }
-                            if( (level+2) < before_level ){
-                                out = out + "}";
-                            }
+                            let start = out.substring(0,out.lastIndexOf('\n')-1);
+                            let end = out.slice(out.lastIndexOf('\n'),out.length);
+                            out = start + end + "},";
                         }
                         before_level = level;
                         if(j==level+1){
