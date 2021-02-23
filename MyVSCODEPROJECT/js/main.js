@@ -45,7 +45,7 @@ var app = new Vue({
                 JSON.parse(this.outdata);
                 check=true;
             } catch (e) {
-                alert("データ不正です");                
+                alert("データ不正です。おそらく、末尾の「}」が足りていないか、最後のデータに「,」が余分にあります。");                
             }
         },
         conv: function(e){
