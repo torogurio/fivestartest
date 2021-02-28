@@ -1,0 +1,21 @@
+{
+  "name": "myvscodeproject",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "build": "webpack --mode development",
+    "prod": "webpack --mode production"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vue": "^2.6.12",
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0"
+  },
+  "dependencies": {
+    "@vue/cli": "^4.5.11"
+  },
+  "description": "hogehoge",
+  "repository": "fugafuga"
+}
